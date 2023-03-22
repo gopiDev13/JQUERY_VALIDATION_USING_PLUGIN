@@ -1,0 +1,543 @@
+<html>
+<title>application form</title>
+
+<body>
+
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+    <style>
+        .table {
+
+            border: 12px double black;
+
+
+            cursor: pointer;
+
+
+        }
+
+        table.center {
+            background-color: rgba(215, 101, 205, 0.786);
+            border-radius: 12px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 2px solid black;
+            height: 50%;
+            width: 35%;
+            cursor: pointer;
+
+
+        }
+
+        .input.error {
+            color: red;
+            font-size: 1rem;
+            display: block;
+            margin-top: 5px;
+        }
+
+       
+
+        input.error.fail-alert {
+            border: 2px solid red;
+            border-radius: 4px;
+            line-height: 1;
+            padding: 2px 0 6px 6px;
+            background: #ffe6eb;
+        }
+
+        label.error {
+            color: rgb(15, 7, 12);
+        }
+
+        .th1.error.fail-alert {
+            border: 2px solid red;
+            border-radius: 4px;
+            line-height: 1;
+            padding: 2px 0 6px 6px;
+            background: #ffe6eb;
+        }
+        
+         /* input[type=radio]#gen.error.fail-alert {
+            border: 2px solid red;
+            border-radius: 4px;
+            line-height: 1;
+            padding: 2px 0 6px 6px;
+            background: #ffe6eb;
+        } */
+
+       
+       
+
+        input.valid.success-alert {
+            border: 2px solid #4CAF50;
+            /* color: green; */
+        }
+        input[type=radio]#gen {
+            accent-color:  #4CAF50;
+        }
+        input[type=checkbox]{
+            accent-color:  #4CAF50;
+        }
+
+       
+
+        .th1.valid.success-alert {
+            border: 2px solid #4CAF50;
+            /* color: green; */
+        }
+
+        .button {
+            background-color: green;
+            /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 2px 2px;
+            cursor: pointer;
+            -webkit-transition-duration: 0.4s;
+            /* Safari */
+            transition-duration: 0.4s;
+        }
+
+        .button:hover {
+            box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.24), 0 4px 4px 0 rgba(0, 0, 0, 0.19);
+        }
+    </style>
+
+    <form name="application" method="POST" id="form" class="form">
+
+        <table class="center">
+            <tr>
+                <th>Name</th>
+                <td><input type="text" name="name">
+                    <span class="error" id="NameErr"></span>
+                </td><br><br>
+            </tr>
+            <tr>
+                <th>Mobile no</th>
+                <td><input type="text" name="number">
+                    <span class="error" id="NumberErr"></span>
+                </td><br><br>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td><input type="email" name="email">
+                    <span class="error" id="MailErr"></span>
+                </td><br><br>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td> <input type="password" name="psw">
+                    <span class="error" id="PassErr">
+
+                    </span>
+                    </br></br>
+                </td>
+            </tr>
+            <tr>
+                <th>Confirm Password</th>
+                <td> <input type="password" name="pass">
+                    <span class="error" id="CoErr">
+
+                    </span>
+                    </br></br>
+                </td>
+            </tr>
+            <tr>
+                <th>City</th>
+                <td><select name="city" class="th1">
+                        <option value="">select</option>
+
+                        <option value="Chennai">Chennai</option>
+                        <option value="Villupuram">Villupuram</option>
+                        <option value="Banglore">Banglore</option>
+                    </select>
+                    <!-- <span class="error" id="CityErr"></span> -->
+                </td>
+                <span class="error" id="CityErr"></span>
+            </tr>
+            <tr>
+
+                <th>Gender</th>
+                <td>
+
+                    <input type="radio" name="gender" id="gen">Male
+                    <input type="radio" name="gender" id="gen">Female
+                    <input type="radio" name="gender" id="gen">Others
+
+
+                </td>
+                <!-- <span class="error"></span> -->
+
+            </tr>
+
+
+            <tr>
+                <th>Please agree to our policy</th>
+                <td><input class="agree" name="agree" type="checkbox">
+                    <span class="error"></span> 
+                    <br><br>
+                </td>
+            </tr>
+            <tr>
+                <th>File</th>
+                <td><input type="file" name="fileup"></td>
+                <!-- <span class="error" id="CityErr"></span> -->
+            </tr>
+            <span class="error" id="CityErr"></span>
+
+            <tr>
+                <td> </td>
+                <td><input type="submit" name="submit" class="button"></td>
+            </tr>
+
+        </table>
+    </form>
+    <script>
+        $(document).ready(function () {
+
+            // $("#fileup").on("change", function () {
+
+            //     /* current this object refer to input element */
+            //     var $input = $(this);
+
+            //     /* collect list of files choosen */
+            //     var files = $input[0].files;
+
+            //     var filename = files[0].name;
+
+            //     /* getting file extenstion eg- .jpg,.png, etc */
+            //     var extension = filename.substr(filename.lastIndexOf("."));
+
+            //     /* define allowed file types */
+            //     var allowedExtensionsRegx = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+
+            //     /* testing extension with regular expression */
+            //     var isAllowed = allowedExtensionsRegx.test(extension);
+
+            //     if (isAllowed) {
+            //         alert("File type is valid for the upload");
+            //         /* file upload logic goes here... */
+            //     } else {
+            //         alert("Invalid File Type.");
+            //         return false;
+            //     }
+            //validate for name
+
+            jQuery.validator.addMethod("lettersonly", function (value, element) {
+                return this.optional(element) || /^[a-zA-Z\s]+$/.test(value);
+            }, "Letters only please");
+            //validate for password
+            $.validator.addMethod("passcheck", function (value) {
+                return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) // consists of only these
+                    && /[a-z]/.test(value) // has a lowercase letter
+                    && /\d/.test(value) // has a digit
+            }, "please enter valid password");
+
+
+
+            $(".form").validate({
+                // alert();
+                errorClass: "error fail-alert",
+                validClass: "valid success-alert",
+                // errorPlacement:
+                //     function (error, element) {
+                //         if (element.is(":radio")) {
+                //             // error append here
+                //             error.appendTo('#radio');
+                //         }
+                //         else {
+                //             error.insertAfter(element);
+                //         }
+
+                rules: {
+                    name: {
+                        required: true,
+                        lettersonly: true,
+                        minlength: 3
+                    },
+                    number: {
+                        required: true,
+                        number: true,
+                        minlength: 10,
+                        maxlength: 10
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    city: {
+                        required: true,
+                    },
+
+                    gender:
+                    {
+                        required: true,
+                    },
+
+
+
+                    psw: {
+                        required: true,
+                        passcheck: true,
+                        minlength: 8
+                    },
+                    pass: {
+                        required: true,
+                        equalTo: '[name="psw"]'
+                    },
+                    agree: {
+                        required: true
+                    },
+                    fileup: {
+                        required: true,
+                        extension: "pdf|jpg|jpeg"
+                    }
+
+
+
+                },
+                messages: {
+                    name: {
+                        required: " * required",
+                    },
+                    number: {
+                        required: " * required",
+                        min: "Mobile number should be minimum of 10 digits"
+                    },
+                    email: {
+                        required: " * required",
+                    },
+                    city: {
+                        required: " * required",
+                    },
+
+                    gender:
+                    {
+                        required: " * Select One",
+                    },
+
+
+                    psw: {
+                        required: " * required",
+                        minlength: "Mobile number should be minimum of 10 digits"
+
+                    },
+                    pass: {
+                        required: " * required",
+
+                    },
+                    agree: {
+                        required: " * required",
+                    },
+                    fileup: {
+                        required: " * required",
+
+                    },
+
+
+                }, errorPlacement: function (error, element) {
+                    if (element.attr('type') == 'radio') {
+                        error.appendTo(element.closest('td'));
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+
+            });
+        });
+
+        // $("#form1").submit(function () {
+        //     if (validate == false) {
+        //         alert("enter details correctly");
+        //     } else {
+        //         var dataPreview = "You've entered the following details: \n" +
+        //             "Full Name: " + name + "\n" +
+        //             "Email Address: " + mail + "\n" +
+        //             "Mobile Number: " + number + "\n" +
+        //             "City: " + city + "\n" +
+
+        //             //             if(lan.length) {
+        //             //     dataPreview += "Language: " + lan.join(", ");
+        //             // }
+
+        //             // Display input data in a dialog box before submitting the form
+        //             alert(dataPreview);
+        //     }
+        // })
+
+        // function validateName() {
+        //     $(document).ready(function () {
+        //         $("#id2").keypress(function (e) {
+        //             var key = e.keyCode;
+        //             if ((evt.which < 64 || evt.which > 90) && (evt.which < 97 || evt.which > 122)) {
+        //                 printError("NameErr", "only alphabets allowed");
+
+        //             }
+        //             else{
+        //                 printError("NameErr","");
+        //             }
+        //         });
+        //     });
+        // }
+
+        // function validateNo() {
+        //     var number = document.getElementById("id1");
+        //     number.addEventListener("keypress", function (evt) {
+        //         console.log(evt.which)
+
+        //         if (evt.which < 48 || evt.which > 57) {
+        //             console.log(evt.which)
+        //             printError("NumberErr", "enter numbers only");
+        //         }
+        //         else {
+        //             printError("NumberErr", "");
+        //         }
+        //     });
+
+        // }
+        // function valiadteMail() {
+        //     var mail = document.getElementById("id3");
+        //     mail.addEventListener("keydown", function (evt) {
+        //         if ((evt.which == 46 || evt.which < 64 || evt.which > 90) && (evt.which < 97 || evt.which > 122) && (evt.which < 48 || evt.which > 57)) {
+        //             printError("MailErr", "enter valid input");
+        //         } else {
+        //             printError("MailErr", "");
+
+        //         }
+        //     });
+        // }
+
+        // function printError(elemId, hintMsg) {
+        //     document.getElementById(elemId).innerHTML = "*" + hintMsg;
+        // }
+
+
+
+        // function validateForm() {
+        //     var myInput = document.application.psw.value;
+        //     var myPass = document.application.pass.value;
+        //     var name = document.application.name.value;
+        //     var mail = document.application.mail.value;
+        //     var number = document.application.number.value;
+        //     var city = document.application.city.value;
+        //     var gender = document.application.gender.value;
+
+        //     var NameErr = NumberErr = MailErr = CityErr = GenderErr = PassErr = CoErr = true;
+
+
+        //     if (name == "") {
+        //         printError("NameErr", "enter your name");
+        //     } else {
+        //         var regex = /^[a-zA-Z\s]+$/;
+        //         if (regex.test(name) === false) {
+        //             printError("NameErr", "enter a valid name");
+        //         } else {
+        //             printError("NameErr", "");
+        //             NameErr = false;
+        //         }
+        //     }
+        //     // Validate email address
+        //     if (mail == "") {
+        //         printError("MailErr", "enter your email");
+        //     } else {
+        //         // Regular expression for basic email validation
+        //         var regex = /^\S+@\S+\.\S+$/;
+        //         if (regex.test(mail) === false) {
+        //             printError("MailErr", "enter a valid email");
+        //         } else {
+        //             printError("MailErr", "");
+        //             MailErr = false;
+        //         }
+        //     }
+        //     if (number == "") {
+        //         printError("NumberErr", "enter your number");
+        //     } else {
+        //         var regex = /^[1-9]\d{9}$/;
+        //         if (regex.test(number) === false) {
+        //             printError("NumberErr", "enter a valid number");
+        //         } else {
+        //             printError("NumberErr", "");
+        //             NumberErr = false;
+        //         }
+        //     }
+        //     if (city == "") {
+        //         printError("CityErr", "select your city");
+        //     } else {
+        //         printError("CityErr", "");
+        //         CityErr = false;
+        //     }
+        //     if (gender == "") {
+        //         printError("GenderErr", "enter your gender");
+        //     } else {
+        //         printError("GenderErr", "");
+        //         GenderErr = false;
+        //     }
+
+        //     const passw = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
+        //     if (myInput.match(passw) && myInput.length >= 8) {
+        //         printError("PassErr", "");
+        //         PassErr = false;
+        //     } else {
+        //         printError("PassErr", "enter valid password");
+        //         PassErr = true;
+        //     }
+
+        //     // if(myPass != ""){
+        //     //     printError("CoErr","");
+        //     //     CoErr=false;
+        //     // }else{
+        //     //     printError("CoErr","enter password");
+
+        //     //     CoErr=true;
+        //     // }
+        //     if (myPass.match(myInput) && (myPass != "")) {
+        //         printError("CoErr", "");
+        //         CoErr = false;
+        //     } else {
+        //         printError("CoErr", "password doesnt match");
+
+        //         CoErr = true;
+        //     }
+
+        // }
+
+        //     if ((NameErr || NumberErr || MailErr || CityErr || GenderErr || PassErr || CoErr) == true) {
+        //         return false;
+        //     } else {
+        //         // Creating a string from input data for preview
+        //         var dataPreview = "You've entered the following details: \n" +
+        //             "Full Name: " + name + "\n" +
+        //             "Email Address: " + mail + "\n" +
+        //             "Mobile Number: " + number + "\n" +
+        //             "City: " + city + "\n" +
+        //             "Gender: " + gender + "\n";
+        //         //             if(lan.length) {
+        //         //     dataPreview += "Language: " + lan.join(", ");
+        //         // }
+
+        //         // Display input data in a dialog box before submitting the form
+        //         alert(dataPreview);
+        //     }
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
